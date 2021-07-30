@@ -1,18 +1,26 @@
 public struct Heap<A> {
-    var values: [A] = []
-    var ordering: (A, A) -> Bool
+    private(set) var values: [A]
+    let ordering: (A, A) -> Bool
 
-    public init(ordering: @escaping (A, A) -> Bool) {
-        self.ordering = ordering
-    }
-
-    public init(values: [A], ordering: @escaping (A, A) -> Bool) {
+    public init(
+        values: [A] = [],
+        ordering: @escaping (A, A) -> Bool
+    ) {
         self.values = values
         self.ordering = ordering
 
+        guard !values.isEmpty else { return }
         for index in stride(from: (values.count / 2) - 1, through: 0, by: -1) {
             sink(index: index)
         }
+    }
+
+    public static func minHeap(values: [A] = []) -> Self where A: Comparable {
+        self.init(ordering: <)
+    }
+
+    public static func maxHeap(values: [A] = []) -> Self where A: Comparable {
+        self.init(ordering: >)
     }
 
     public mutating func insert(_ value: A) {
