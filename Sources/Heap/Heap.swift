@@ -15,12 +15,12 @@ public struct Heap<A> {
         }
     }
 
-    public static func minHeap(values: [A] = []) -> Self where A: Comparable {
-        self.init(ordering: <)
+    public static func minPQ(values: [A] = []) -> Self where A: Comparable {
+        self.init(values: values, ordering: <)
     }
 
-    public static func maxHeap(values: [A] = []) -> Self where A: Comparable {
-        self.init(ordering: >)
+    public static func maxPQ(values: [A] = []) -> Self where A: Comparable {
+        self.init(values: values, ordering: >)
     }
 
     public mutating func insert(_ value: A) {
