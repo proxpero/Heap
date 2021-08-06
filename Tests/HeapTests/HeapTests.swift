@@ -3,6 +3,29 @@ import XCTest
 
 final class HeapTests: XCTestCase {
 
+    func testEmptyInit() {
+        var heap = Heap<Int>.minPQ()
+        heap.insert(5)
+        heap.insert(4)
+        heap.insert(3)
+        heap.insert(2)
+        heap.insert(1)
+        XCTAssertEqual(heap.remove(), 1)
+        XCTAssertEqual(heap.remove(), 2)
+        XCTAssertEqual(heap.remove(), 3)
+        XCTAssertEqual(heap.remove(), 4)
+        XCTAssertEqual(heap.remove(), 5)
+    }
+
+    func testInitWithValues() {
+        var heap = Heap<Int>.minPQ(values: [5, 4, 3, 2, 1])
+        XCTAssertEqual(heap.remove(), 1)
+        XCTAssertEqual(heap.remove(), 2)
+        XCTAssertEqual(heap.remove(), 3)
+        XCTAssertEqual(heap.remove(), 4)
+        XCTAssertEqual(heap.remove(), 5)
+    }
+
     func testHeap() {
         var heap = Heap<Int>(ordering: <) // minPq
         heap.insert(10)
